@@ -1,0 +1,32 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ucadit_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ucadit_user
+      POSTGRES_PASSWORD: ucadit_pass
+      POSTGRES_DB: ucadit
+    ports:
+      - "5432:5432"
+    volumes:
+      - ucadit_pg_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: ucadit_backend
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://ucadit_user:ucadit_pass@postgres:5432/ucadit
+      JWT_SECRET: change_this_secret_in_production
+      PORT: 4000
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+volumes:
+  ucadit_pg_data:
