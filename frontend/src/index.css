@@ -1,0 +1,32 @@
+:root {
+  --primary: #1d4ed8;
+  --gray: #6b7280;
+  --green: #16a34a;
+  --orange: #f97316;
+  --red: #dc2626;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body { margin: 0; background: #f9fafb; color: #111827; }
+
+.auth-page { max-width: 360px; margin: 80px auto; text-align: center; }
+.auth-page form { display: flex; flex-direction: column; gap: 12px; text-align: left; }
+.auth-page label { display: flex; flex-direction: column; font-size: 14px; }
+.auth-page input { padding: 8px; border: 1px solid #d1d5db; border-radius: 6px; }
+.auth-page button { background: var(--primary); color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; }
+.error { color: var(--red); font-size: 13px; }
+
+.dashboard { padding: 24px; }
+.dashboard header { display: flex; justify-content: space-between; align-items: center; }
+.project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-top: 16px; }
+.project-card { display: block; background: white; border-radius: 8px; padding: 16px; text-decoration: none; color: inherit; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.fab { position: fixed; bottom: 24px; right: 24px; background: var(--primary); color: white; border: none; padding: 12px 18px; border-radius: 24px; cursor: pointer; }
+
+.project-view { padding: 24px; }
+.step-progress { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+.step { display: flex; justify-content: space-between; padding: 12px; border-radius: 6px; background: white; border-left: 6px solid var(--gray); }
+.step-in_progress { border-left-color: var(--primary); }
+.step-submitted { border-left-color: var(--orange); }
+.step-validated { border-left-color: var(--green); }
+.step-rejected { border-left-color: var(--red); }
+.badge { font-size: 12px; color: var(--gray); }
