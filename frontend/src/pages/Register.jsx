@@ -8,7 +8,6 @@ export default function Register() {
     email: '',
     password: '',
     role: 'student',
-    schoolCode: '',
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -57,10 +56,6 @@ export default function Register() {
               <option value="student">Étudiant</option>
               <option value="teacher">Enseignant</option>
             </select>
-          </label>
-          <label>
-            Code école
-            <input name="schoolCode" value={form.schoolCode} onChange={handleChange} required placeholder="ex: ESP2025" />
           </label>
           {error && <p className="error">{error}</p>}
           <button type="submit">Créer mon compte</button>

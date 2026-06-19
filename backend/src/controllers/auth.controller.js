@@ -2,15 +2,10 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('../config/db');
 
-// US-01 : inscription avec code école
+// US-01 (simplifié) : inscription sans code école obligatoire
 async function register(req, res, next) {
   try {
-    const { fullName, email, password, role, schoolCode, programId } = req.body;
-
-    const school = await db.query('SELECT id FROM schools WHERE registration_code = $1', [schoolCode]);
-    if (school.rows.length === 0) {
-      return res.status(400).json({ error: 'Code école invalide.' });
-    }
+    const { fullName, email, password, role } = req.body;
 
     const existing = await db.query('SELECT id FROM users WHERE email = $1', [email]);
     if (existing.rows.length > 0) {
@@ -20,9 +15,9 @@ async function register(req, res, next) {
     const passwordHash = await bcrypt.hash(password, 10);
     const result = await db.query(
       `INSERT INTO users (school_id, program_id, full_name, email, password_hash, role)
-       VALUES ($1, $2, $3, $4, $5, $6)
+       VALUES (NULL, NULL, $1, $2, $3, $4)
        RETURNING id, full_name, email, role`,
-      [school.rows[0].id, programId || null, fullName, email, passwordHash, role || 'student']
+      [fullName, email, passwordHash, role || 'student']
     );
 
     res.status(201).json({ user: result.rows[0] });
